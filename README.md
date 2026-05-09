@@ -13,6 +13,13 @@ It contains "Pro-Grade" patches for the Pioneer DDJ-FLX4 hardware, resolving cri
 
 Python library for the Pioneer DDJ-FLX4 DJ controller.
 
+### 📜 Credits & Attribution
+This project is a technical fork of the original **flx4py** library created by **[TRC-Loop](https://github.com/TRC-Loop/flx4py)**. We are incredibly grateful for their foundational work in mapping the FLX4 for Python. 
+
+The Blacklist Tech version focuses on hardware-specific logic corrections and expanded mapping support for advanced production environments.
+
+---
+
 Full programmatic access to every button, knob, fader, jog wheel, and LED on the device — with a clean, callback-based API.
 
 ```python
