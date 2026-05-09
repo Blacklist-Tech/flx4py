@@ -104,16 +104,23 @@ BUTTON_INPUT: dict[tuple[int, int], ButtonInfo] = {
     (1, 104): ButtonInfo('SHIFT',           2,    True),
 
     # FX buttons (no deck for the global ones)
-    (4, 99):  ButtonInfo('FX_BEAT_LEFT',    None, False),
-    (4, 100): ButtonInfo('FX_BEAT_LEFT',    None, True),
+    (4, 99):  ButtonInfo('FX_SELECT',       None, False), # Was FX_BEAT_LEFT
+    (4, 100): ButtonInfo('FX_SELECT',       None, True),  # Was FX_BEAT_LEFT (Shift)
     (4, 74):  ButtonInfo('FX_BEAT_RIGHT',   None, False),
     (4, 102): ButtonInfo('FX_BEAT_RIGHT',   None, True),
-    (4, 75):  ButtonInfo('FX_ON_OFF',       None, False),
-    (4, 107): ButtonInfo('FX_ON_OFF',       None, True),
-    (4, 71):  ButtonInfo('FX_CH_SELECT',    1,    False),
-    (5, 71):  ButtonInfo('FX_CH_SELECT',    2,    False),
+    (4, 75):  ButtonInfo('FX_BEAT_LEFT',    None, False), # Was FX_ON_OFF
+    (4, 107): ButtonInfo('FX_BEAT_LEFT',    None, True),  # Was FX_ON_OFF (Shift)
+    (4, 71):  ButtonInfo('FX_ON',           1,    False), # Was FX_CH_SELECT
+    (5, 71):  ButtonInfo('FX_ON',           2,    False), # Was FX_CH_SELECT
     (4, 67):  ButtonInfo('FX_SELECT',       1,    False),
     (5, 67):  ButtonInfo('FX_SELECT',       2,    False),
+    
+    # Missing Blacklist Controls
+    (4, 16):  ButtonInfo('FX_CH_1',         None, False),
+    (5, 17):  ButtonInfo('FX_CH_2_MASTER',  None, False),
+    (6, 0):   ButtonInfo('SMART_CFX',       None, False),
+    (6, 1):   ButtonInfo('SMART_FADER_BTN', None, False),
+
 
     # Mixer
     (6, 99):  ButtonInfo('MASTER_CUE',      None, False),
@@ -131,20 +138,21 @@ BUTTON_INPUT: dict[tuple[int, int], ButtonInfo] = {
 # (channel, msb_cc) -> KnobInfo  (14-bit control_change)
 KNOB_14BIT_INPUT: dict[tuple[int, int], KnobInfo] = {
     (0, 0):  KnobInfo('TEMPO',           1,    32,   False),
-    (0, 2):  KnobInfo('TRIM',            1,    34,   False),
-    (0, 4):  KnobInfo('EQ_HI',          1,    36,   False),
-    (0, 7):  KnobInfo('EQ_MID',         1,    39,   False),
-    (0, 11): KnobInfo('EQ_LOW',         1,    43,   False),
-    (0, 15): KnobInfo('CFX',            1,    47,   False),
-    (0, 19): KnobInfo('CH_FADER',       1,    51,   False),
+    (0, 2):  KnobInfo('EQ_HI',           1,    34,   False), # Was TRIM
+    (0, 4):  KnobInfo('EQ_MID',          1,    36,   False), # Was EQ_HI
+    (0, 7):  KnobInfo('EQ_LOW',          1,    39,   False), # Was EQ_MID
+    (0, 11): KnobInfo('CFX',             1,    43,   False), # Was EQ_LOW
+    (0, 15): KnobInfo('MIC_LEVEL',       1,    47,   False), # Was CFX (Mapped to MIC for Blacklist)
+    (0, 19): KnobInfo('CH_FADER',        1,    51,   False),
 
     (1, 0):  KnobInfo('TEMPO',           2,    32,   False),
-    (1, 2):  KnobInfo('TRIM',            2,    34,   False),
-    (1, 4):  KnobInfo('EQ_HI',          2,    36,   False),
-    (1, 7):  KnobInfo('EQ_MID',         2,    39,   False),
-    (1, 11): KnobInfo('EQ_LOW',         2,    43,   False),
-    (1, 15): KnobInfo('CFX',            2,    47,   False),
-    (1, 19): KnobInfo('CH_FADER',       2,    51,   False),
+    (1, 2):  KnobInfo('EQ_HI',           2,    34,   False), # Was TRIM
+    (1, 4):  KnobInfo('EQ_MID',          2,    36,   False), # Was EQ_HI
+    (1, 7):  KnobInfo('EQ_LOW',          2,    39,   False), # Was EQ_MID
+    (1, 11): KnobInfo('CFX',             2,    43,   False), # Was EQ_LOW
+    (1, 15): KnobInfo('SMART_FADER',     2,    47,   False), # Was CFX (Mapped to SMART_FADER for Blacklist)
+    (1, 19): KnobInfo('CH_FADER',        2,    51,   False),
+
 
     (4, 2):  KnobInfo('FX_LEVEL',       None, 34,   False),
     (6, 5):  KnobInfo('MASTER_LEVEL',   None, 37,   False),
@@ -162,10 +170,12 @@ KNOB_14BIT_LSB: dict[tuple[int, int], tuple[int, int]] = {
     if info.lsb_cc is not None
 }
 
-# 7-bit absolute (MONO_STEREO slider)
+# 7-bit absolute (MONO_STEREO slider and Master fallback)
 KNOB_7BIT_INPUT: dict[tuple[int, int], KnobInfo] = {
     (6, 109): KnobInfo('MONO_STEREO', None, None, False),
+    (6, 40):  KnobInfo('MASTER_LEVEL_7BIT', None, None, False), # Blacklist Discovery Fix
 }
+
 
 # Browse encoder (relative)
 BROWSE_INPUT: dict[tuple[int, int], bool] = {

@@ -99,6 +99,17 @@ class LEDController:
         note = PAD_LED_MODES[mode_str] + pad
         self._note(channel, note, LEDState.ON.value if on else LEDState.OFF.value)
 
+    def set_pad_safe(self, deck: int, pad: int, on: bool) -> None:
+        """
+        Standardized monochrome pad control (Blacklist Discovery Fix).
+        Bypasses complex mode logic to directly address the physical hardware notes.
+        """
+        # deck 1 = ch 7 (notes 16-23), deck 2 = ch 9 (notes 0-7)
+        channel = 7 if deck == 1 else 9
+        note = (pad + 16) if deck == 1 else pad
+        self._note(channel, note, LEDState.ON.value if on else LEDState.OFF.value)
+
+
     def set_all_pads(
         self,
         deck: int,
