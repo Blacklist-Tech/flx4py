@@ -1,4 +1,15 @@
-# flx4py
+# flx4py (Blacklist Technical Fork)
+
+**This is a maintained fork by Blacklist Tech.**
+It contains "Pro-Grade" patches for the Pioneer DDJ-FLX4 hardware, resolving critical library errors found in the original release.
+
+### 🛠️ What's Fixed?
+- **Mixer Column Shift**: Corrected physical knob mappings for Trim, Hi, Mid, Low, and CFX.
+- **FX Section Swaps**: Fixed swapped MIDI addresses for FX Select, FX Beat, and FX On buttons.
+- **Missing Controls**: Added support for Master Level (CC 40), FX Channel Switches, and Smart CFX/Fader buttons.
+- **Improved LED Logic**: Added `set_pad_safe` for guaranteed monochrome pad control regardless of mode.
+
+---
 
 Python library for the Pioneer DDJ-FLX4 DJ controller.
 
